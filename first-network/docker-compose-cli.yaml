@@ -6,56 +6,92 @@
 version: '2'
 
 volumes:
-  orderer.example.com:
-  peer0.org1.example.com:
-  peer1.org1.example.com:
-  peer0.org2.example.com:
-  peer1.org2.example.com:
+  orderer.singihl.com:
+  peer0.ntu.singihl.com:
+  peer1.ntu.singihl.com:
+  peer2.ntu.singihl.com:
+  # peer3.ntu.singihl.com:
+  # peer4.ntu.singihl.com:
+  peer0.nus.singihl.com:
+  peer1.nus.singihl.com:
+  # peer2.nus.singihl.com:  
 
 networks:
-  byfn:
+  ihl:
 
 services:
 
-  orderer.example.com:
+  orderer.singihl.com:
     extends:
       file:   base/docker-compose-base.yaml
-      service: orderer.example.com
-    container_name: orderer.example.com
+      service: orderer.singihl.com
+    container_name: orderer.singihl.com
     networks:
-      - byfn
+      - ihl
 
-  peer0.org1.example.com:
-    container_name: peer0.org1.example.com
+  peer0.ntu.singihl.com:
+    container_name: peer0.ntu.singihl.com
     extends:
       file:  base/docker-compose-base.yaml
-      service: peer0.org1.example.com
+      service: peer0.ntu.singihl.com
     networks:
-      - byfn
+      - ihl
 
-  peer1.org1.example.com:
-    container_name: peer1.org1.example.com
+  peer1.ntu.singihl.com:
+    container_name: peer1.ntu.singihl.com
     extends:
       file:  base/docker-compose-base.yaml
-      service: peer1.org1.example.com
+      service: peer1.ntu.singihl.com
     networks:
-      - byfn
+      - ihl
 
-  peer0.org2.example.com:
-    container_name: peer0.org2.example.com
+  peer2.ntu.singihl.com:
+    container_name: peer2.ntu.singihl.com
     extends:
       file:  base/docker-compose-base.yaml
-      service: peer0.org2.example.com
+      service: peer2.ntu.singihl.com
     networks:
-      - byfn
+      - ihl
 
-  peer1.org2.example.com:
-    container_name: peer1.org2.example.com
+  # peer3.ntu.singihl.com:
+  #   container_name: peer3.ntu.singihl.com
+  #   extends:
+  #     file:  base/docker-compose-base.yaml
+  #     service: peer3.ntu.singihl.com
+  #   networks:
+  #     - ihl
+
+  # peer4.ntu.singihl.com:
+  #   container_name: peer4.ntu.singihl.com
+  #   extends:
+  #     file:  base/docker-compose-base.yaml
+  #     service: peer4.ntu.singihl.com
+  #   networks:
+  #     - ihl
+
+  peer0.nus.singihl.com:
+    container_name: peer0.nus.singihl.com
     extends:
       file:  base/docker-compose-base.yaml
-      service: peer1.org2.example.com
+      service: peer0.nus.singihl.com
     networks:
-      - byfn
+      - ihl
+
+  peer1.nus.singihl.com:
+    container_name: peer1.nus.singihl.com
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer1.nus.singihl.com
+    networks:
+      - ihl
+
+  # peer2.nus.singihl.com:
+  #   container_name: peer2.nus.singihl.com
+  #   extends:
+  #     file:  base/docker-compose-base.yaml
+  #     service: peer2.nus.singihl.com
+  #   networks:
+  #     - ihl
 
   cli:
     container_name: cli
@@ -65,16 +101,16 @@ services:
     environment:
       - GOPATH=/opt/gopath
       - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
-      #- CORE_LOGGING_LEVEL=DEBUG
+      - CORE_LOGGING_LEVEL=DEBUG
       - CORE_LOGGING_LEVEL=INFO
       - CORE_PEER_ID=cli
-      - CORE_PEER_ADDRESS=peer0.org1.example.com:7051
-      - CORE_PEER_LOCALMSPID=Org1MSP
+      - CORE_PEER_ADDRESS=peer0.ntu.singihl.com:7051
+      - CORE_PEER_LOCALMSPID=NTUMSP
       - CORE_PEER_TLS_ENABLED=true
-      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/server.crt
-      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/server.key
-      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
-      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
+      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/ntu.singihl.com/peers/peer0.ntu.singihl.com/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/ntu.singihl.com/peers/peer0.ntu.singihl.com/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/ntu.singihl.com/peers/peer0.ntu.singihl.com/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/ntu.singihl.com/users/Admin@peer0.ntu.singihl.com/msp
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: /bin/bash
     volumes:
@@ -84,10 +120,15 @@ services:
         - ./scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
         - ./channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
     depends_on:
-      - orderer.example.com
-      - peer0.org1.example.com
-      - peer1.org1.example.com
-      - peer0.org2.example.com
-      - peer1.org2.example.com
+      - orderer.singihl.com
+      - peer0.ntu.singihl.com
+      - peer1.ntu.singihl.com
+      - peer2.ntu.singihl.com
+      #- peer3.ntu.singihl.com
+      #- peer4.ntu.singihl.com
+      - peer0.nus.singihl.com
+      - peer1.nus.singihl.com
+      #- peer2.nus.singihl.com  
+
     networks:
-      - byfn
+      - ihl

@@ -10,8 +10,8 @@ OrdererOrgs:
   # ---------------------------------------------------------------------------
   # Orderer
   # ---------------------------------------------------------------------------
-  - Name: Orderer
-    Domain: example.com
+  - Name: MOE
+    Domain: singihl.com
     # ---------------------------------------------------------------------------
     # "Specs" - See PeerOrgs below for complete description
     # ---------------------------------------------------------------------------
@@ -24,8 +24,8 @@ PeerOrgs:
   # ---------------------------------------------------------------------------
   # Org1
   # ---------------------------------------------------------------------------
-  - Name: Org1
-    Domain: org1.example.com
+  - Name: NTU
+    Domain: ntu.singihl.com
     EnableNodeOUs: true
     # ---------------------------------------------------------------------------
     # "Specs"
@@ -61,7 +61,7 @@ PeerOrgs:
     # name collisions
     # ---------------------------------------------------------------------------
     Template:
-      Count: 2
+      Count: 5
       # Start: 5
       # Hostname: {{.Prefix}}{{.Index}} # default
     # ---------------------------------------------------------------------------
@@ -70,14 +70,14 @@ PeerOrgs:
     # Count: The number of user accounts _in addition_ to Admin
     # ---------------------------------------------------------------------------
     Users:
-      Count: 1
+      Count: 3
   # ---------------------------------------------------------------------------
   # Org2: See "Org1" for full specification
   # ---------------------------------------------------------------------------
-  - Name: Org2
-    Domain: org2.example.com
+  - Name: NUS
+    Domain: nus.singihl.com
     EnableNodeOUs: true
     Template:
-      Count: 2
+      Count: 3
     Users:
-      Count: 1
+      Count: 2

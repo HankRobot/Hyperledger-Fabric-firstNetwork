@@ -20,21 +20,21 @@ Profiles:
         Orderer:
             <<: *OrdererDefaults
             Organizations:
-                - *OrdererOrg
+                - *MOE
             Capabilities:
                 <<: *OrdererCapabilities
         Consortiums:
-            SampleConsortium:
+            SingIHL:
                 Organizations:
-                    - *Org1
-                    - *Org2
+                    - *NTU
+                    - *NUS
     TwoOrgsChannel:
-        Consortium: SampleConsortium
+        Consortium: SingIHL
         Application:
             <<: *ApplicationDefaults
             Organizations:
-                - *Org1
-                - *Org2
+                - *NTU
+                - *NUS
             Capabilities:
                 <<: *ApplicationCapabilities
 
@@ -50,49 +50,51 @@ Organizations:
 
     # SampleOrg defines an MSP using the sampleconfig.  It should never be used
     # in production but may be used as a template for other definitions
-    - &OrdererOrg
+    - &MOE
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: OrdererOrg
+        Name: MOE
 
         # ID to load the MSP definition as
-        ID: OrdererMSP
+        ID: MOEMSP
 
         # MSPDir is the filesystem path which contains the MSP configuration
-        MSPDir: crypto-config/ordererOrganizations/example.com/msp
+        MSPDir: crypto-config/ordererOrganizations/singihl.com/msp
 
-    - &Org1
+    - &NTU
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: Org1MSP
+        Name: NTUMSP
 
         # ID to load the MSP definition as
-        ID: Org1MSP
+        ID: NTUMSP
 
-        MSPDir: crypto-config/peerOrganizations/org1.example.com/msp
+        MSPDir: crypto-config/peerOrganizations/ntu.singihl.com/msp
 
         AnchorPeers:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.org1.example.com
+            - Host: peer0.ntu.singihl.com
               Port: 7051
+            - Host: peer3.ntu.singihl.com
+              Port: 7051  
 
-    - &Org2
+    - &NUS
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: Org2MSP
+        Name: NUSMSP
 
         # ID to load the MSP definition as
-        ID: Org2MSP
+        ID: NUSMSP
 
-        MSPDir: crypto-config/peerOrganizations/org2.example.com/msp
+        MSPDir: crypto-config/peerOrganizations/nus.singihl.com/msp
 
         AnchorPeers:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.org2.example.com
+            - Host: peer0.nus.singihl.com
               Port: 7051
 
 ################################################################################
@@ -110,10 +112,10 @@ Orderer: &OrdererDefaults
     OrdererType: solo
 
     Addresses:
-        - orderer.example.com:7050
+        - orderer.singihl.com:7050
 
     # Batch Timeout: The amount of time to wait before creating a batch
-    BatchTimeout: 2s
+    BatchTimeout: 10s
 
     # Batch Size: Controls the number of messages batched into a block
     BatchSize:
